@@ -1,0 +1,781 @@
+<div class="admin-dashboard">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="brand">
+        <h1>SUKO Admin</h1>
+        <span class="brand-subtitle">Dashboard</span>
+      </div>
+      <div class="header-actions">
+        <button (click)="goToHomepage()" class="homepage-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          Back to Store
+        </button>
+        <button (click)="logout()" class="logout-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16,17 21,12 16,7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <h3>Products</h3>
+          <button 
+            [class.active]="activeTab() === 'products'"
+            (click)="setActiveTab('products')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 7h-9"/>
+              <path d="M14 17H5"/>
+              <circle cx="17" cy="17" r="3"/>
+              <circle cx="7" cy="7" r="3"/>
+            </svg>
+            All Products
+          </button>
+          <button 
+            [class.active]="activeTab() === 'add-product'"
+            (click)="setActiveTab('add-product')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v8"/>
+              <path d="M8 12h8"/>
+            </svg>
+            Add Product
+          </button>
+          <button 
+            [class.active]="activeTab() === 'categories'"
+            (click)="setActiveTab('categories')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h7v9H3z"/>
+              <path d="M14 3h7v5h-7z"/>
+              <path d="M14 12h7v9h-7z"/>
+              <path d="M3 16h7v5H3z"/>
+            </svg>
+            Categories
+          </button>
+        </div>
+        
+        <div class="nav-section">
+          <h3>Orders</h3>
+          <button 
+            [class.active]="activeTab() === 'all-orders'"
+            (click)="setActiveTab('all-orders')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 4V2a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V10h1a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-1V2a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v2H7z"/>
+            </svg>
+            All Orders
+          </button>
+          <button 
+            [class.active]="activeTab() === 'pending-orders'"
+            (click)="setActiveTab('pending-orders')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+            Pending Orders
+          </button>
+        </div>
+        
+        <div class="nav-section">
+          <h3>Analytics</h3>
+          <button 
+            [class.active]="activeTab() === 'orders'"
+            (click)="setActiveTab('orders')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            </svg>
+            Orders
+          </button>
+          <button 
+            [class.active]="activeTab() === 'analytics'"
+            (click)="setActiveTab('analytics')"
+            class="nav-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3v18h18"/>
+              <path d="M7 16l4-4 4 4 6-6"/>
+            </svg>
+            Analytics
+          </button>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard Stats -->
+      <div class="stats-grid" *ngIf="activeTab() === 'products'">
+        <div class="stat-card">
+          <div class="stat-icon products">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 7h-9"/>
+              <path d="M14 17H5"/>
+              <circle cx="17" cy="17" r="3"/>
+              <circle cx="7" cy="7" r="3"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <h3>{{ totalProducts() }}</h3>
+            <p>Total Products</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon featured">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <h3>{{ featuredProducts() }}</h3>
+            <p>Featured Products</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stock">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <h3>{{ inStockProducts() }}</h3>
+            <p>In Stock</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon categories">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h7v9H3z"/>
+              <path d="M14 3h7v5h-7z"/>
+              <path d="M14 12h7v9h-7z"/>
+              <path d="M3 16h7v5H3z"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <h3>{{ uniqueCategories() }}</h3>
+            <p>Categories</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products List -->
+      <div *ngIf="activeTab() === 'products'" class="products-section">
+        <div class="section-header">
+          <h2>Products Management</h2>
+          <div class="header-actions">
+            <div class="search-box">
+              <input 
+                [(ngModel)]="searchTerm" 
+                (input)="filterProducts()"
+                placeholder="Search products..."
+                class="search-input">
+              <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </div>
+            <select [(ngModel)]="categoryFilter" (change)="filterProducts()" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="tees">Tees</option>
+              <option value="sweats">Sweats</option>
+              <option value="tops-shirts">Tops & Shirts</option>
+              <option value="outerwear">Outerwear</option>
+              <option value="denim">Denim</option>
+              <option value="accessories">Accessories</option>
+            </select>
+            <button (click)="setActiveTab('add-product')" class="add-product-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 8v8"/>
+                <path d="M8 12h8"/>
+              </svg>
+              Add Product
+            </button>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <div *ngFor="let product of filteredProducts" class="product-card">
+            <div class="product-image">
+              <img [src]="product.images[0]" [alt]="product.name" loading="lazy">
+              <div class="product-badges">
+                <span *ngIf="product.featured" class="badge featured">Featured</span>
+                <span [class]="product.inStock ? 'badge in-stock' : 'badge out-of-stock'">
+                  {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+                </span>
+              </div>
+            </div>
+            
+            <div class="product-info">
+              <h4>{{ product.name }}</h4>
+              <p class="product-category">{{ product.category | titlecase }}</p>
+              <div class="product-price">
+                <span class="current-price">€{{ product.price }}</span>
+                <span *ngIf="product.originalPrice && product.originalPrice > product.price" class="original-price">
+                  €{{ product.originalPrice }}
+                </span>
+              </div>
+              
+              <div class="product-details">
+                <div class="detail-item">
+                  <span class="label">Sizes:</span>
+                  <span class="value">{{ product.sizes.join(', ') }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Colors:</span>
+                  <span class="value">{{ product.colors.join(', ') }}</span>
+                </div>
+              </div>
+
+              <div class="product-actions">
+                <button (click)="editProduct(product)" class="btn-secondary">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  Edit
+                </button>
+                <button (click)="deleteProduct(product.id!)" class="btn-danger">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                  </svg>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="filteredProducts.length === 0" class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <h3>No products found</h3>
+          <p>Try adjusting your search or filter criteria</p>
+        </div>
+      </div>
+
+      <!-- Add/Edit Product Form -->
+      <div *ngIf="activeTab() === 'add-product' || editingProduct()" class="product-form-section">
+        <div class="section-header">
+          <h2>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h2>
+          <button (click)="cancelEdit()" class="btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            Cancel
+          </button>
+        </div>
+
+        <form (ngSubmit)="saveProduct()" class="product-form" #productFormRef="ngForm">
+          <div class="form-sections">
+            <!-- Basic Information -->
+            <div class="form-section">
+              <h3>Basic Information</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="productName">Product Name *</label>
+                  <input 
+                    id="productName"
+                    [(ngModel)]="productForm.name" 
+                    name="name" 
+                    type="text" 
+                    placeholder="Enter product name"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label for="productCategory">Category *</label>
+                  <select id="productCategory" [(ngModel)]="productForm.category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="new-arrivals">New Arrivals</option>
+                    <option value="tees">Tees</option>
+                    <option value="sweats">Sweats</option>
+                    <option value="tops-shirts">Tops & Shirts</option>
+                    <option value="knits">Knits</option>
+                    <option value="outerwear">Outerwear</option>
+                    <option value="denim">Denim</option>
+                    <option value="shorts">Shorts</option>
+                    <option value="pants">Pants</option>
+                    <option value="headwear">Headwear</option>
+                    <option value="sunglasses">Sunglasses</option>
+                    <option value="accessories">Accessories</option>
+                  </select>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="productDescription">Description</label>
+                  <textarea 
+                    id="productDescription"
+                    [(ngModel)]="productForm.description" 
+                    name="description" 
+                    rows="4" 
+                    placeholder="Describe your product (optional)..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="form-section">
+              <h3>Pricing</h3>
+              <div class="form-grid pricing-grid">
+                <div class="form-group">
+                  <label for="productPrice">Price (€) *</label>
+                  <input 
+                    id="productPrice"
+                    [(ngModel)]="productForm.price" 
+                    name="price" 
+                    type="number" 
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label for="originalPrice">Original Price (€)</label>
+                  <input 
+                    id="originalPrice"
+                    [(ngModel)]="productForm.originalPrice" 
+                    name="originalPrice" 
+                    type="number" 
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00">
+                  <small>Leave empty if no discount</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Options -->
+            <div class="form-section">
+              <h3>Product Options</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="productSizes">Available Sizes</label>
+                  <input 
+                    id="productSizes"
+                    [(ngModel)]="sizesInput" 
+                    name="sizes" 
+                    type="text" 
+                    placeholder="XS, S, M, L, XL"
+                    class="sizes-input">
+                  <div class="size-options">
+                    <button 
+                      type="button" 
+                      *ngFor="let size of availableSizes" 
+                      (click)="toggleSize(size)"
+                      [class.selected]="isSelectedSize(size)"
+                      class="size-option-btn">
+                      {{ size }}
+                    </button>
+                  </div>
+                  <small>Click sizes above or type custom sizes separated by commas</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="productColors">Available Colors</label>
+                  <input 
+                    id="productColors"
+                    [(ngModel)]="colorsInput" 
+                    name="colors" 
+                    type="text" 
+                    placeholder="Black, White, Navy, Grey"
+                    class="colors-input">
+                  <div class="color-options">
+                    <button 
+                      type="button" 
+                      *ngFor="let color of availableColors" 
+                      (click)="toggleColor(color)"
+                      [class.selected]="isSelectedColor(color)"
+                      class="color-option-btn">
+                      <span class="color-swatch" [style.background-color]="getColorHex(color)"></span>
+                      {{ color }}
+                    </button>
+                  </div>
+                  <small>Click colors above or type custom colors separated by commas</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Images -->
+            <div class="form-section">
+              <h3>Product Images</h3>
+              <div class="form-group">
+                <label for="productImages">Image URLs *</label>
+                <textarea 
+                  id="productImages"
+                  [(ngModel)]="imagesInput" 
+                  name="images" 
+                  rows="4" 
+                  placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
+                  required></textarea>
+                <small>Separate URLs with commas. First image will be the main product image.</small>
+              </div>
+
+              <!-- Image Preview -->
+              <div class="image-preview" *ngIf="getImagePreviews().length > 0">
+                <h4>Preview</h4>
+                <div class="preview-grid">
+                  <div *ngFor="let image of getImagePreviews(); let i = index" class="preview-item">
+                    <img [src]="image" [alt]="'Preview ' + (i + 1)" loading="lazy">
+                    <span class="preview-label">{{ i === 0 ? 'Main' : 'Alt ' + i }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="form-section">
+              <h3>Product Settings</h3>
+              <div class="form-checkboxes">
+                <label class="checkbox-label">
+                  <input [(ngModel)]="productForm.inStock" name="inStock" type="checkbox">
+                  <span class="checkmark"></span>
+                  In Stock
+                  <small>Product is available for purchase</small>
+                </label>
+
+                <label class="checkbox-label">
+                  <input [(ngModel)]="productForm.featured" name="featured" type="checkbox">
+                  <span class="checkmark"></span>
+                  Featured Product
+                  <small>Display in featured sections</small>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" [disabled]="!productFormRef.form.valid || isSaving">
+              <svg *ngIf="!isSaving" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,11 12,14 22,4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+              <svg *ngIf="isSaving" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spinning">
+                <path d="M21 12a9 9 0 11-6.18-8.49"/>
+              </svg>
+              {{ isSaving ? 'Saving...' : (editingProduct() ? 'Update Product' : 'Create Product') }}
+            </button>
+            <button type="button" (click)="resetForm()" class="btn-secondary" [disabled]="isSaving">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                <path d="M21 3v5h-5"/>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                <path d="M3 21v-5h5"/>
+              </svg>
+              Reset Form
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Categories Management -->
+      <div *ngIf="activeTab() === 'categories'" class="categories-section">
+        <div class="section-header">
+          <h2>Categories Management</h2>
+        </div>
+        <div class="coming-soon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+            <line x1="9" y1="9" x2="9.01" y2="9"/>
+            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          </svg>
+          <h3>Coming Soon</h3>
+          <p>Category management features will be available soon</p>
+        </div>
+      </div>
+
+      <!-- All Orders Management -->
+      <div *ngIf="activeTab() === 'all-orders'" class="orders-section">
+        <div class="section-header">
+          <h2>All Orders</h2>
+          <div class="search-filter-bar">
+            <div class="search-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input type="text" placeholder="Search orders..." [(ngModel)]="orderSearchTerm">
+            </div>
+            <select [(ngModel)]="orderStatusFilter" class="status-filter">
+              <option value="">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="orders-stats">
+          <div class="stat-card">
+            <h4>Total Orders</h4>
+            <span class="stat-value">{{ allOrders().length }}</span>
+          </div>
+          <div class="stat-card">
+            <h4>Pending</h4>
+            <span class="stat-value pending">{{ pendingOrdersCount() }}</span>
+          </div>
+          <div class="stat-card">
+            <h4>Processing</h4>
+            <span class="stat-value processing">{{ processingOrdersCount() }}</span>
+          </div>
+          <div class="stat-card">
+            <h4>Completed</h4>
+            <span class="stat-value completed">{{ completedOrdersCount() }}</span>
+          </div>
+        </div>
+        
+        <div class="orders-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of filteredOrders()">
+                <td class="order-id">#{{ order.id }}</td>
+                <td>{{ order.customerName }}</td>
+                <td>{{ order.date | date:'short' }}</td>
+                <td>{{ order.items.length }} items</td>
+                <td class="total">${{ order.total | number:'1.2-2' }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="order.status">{{ order.status | titlecase }}</span>
+                </td>
+                <td class="actions">
+                  <button class="action-btn view" (click)="viewOrder(order.id)">View</button>
+                  <button class="action-btn edit" (click)="updateOrderStatus(order.id)">Update</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="filteredOrders().length === 0" class="no-orders">
+            <p>No orders found matching your criteria.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pending Orders Management -->
+      <div *ngIf="activeTab() === 'pending-orders'" class="orders-section">
+        <div class="section-header">
+          <h2>Pending Orders</h2>
+          <div class="urgent-notice" *ngIf="pendingOrdersCount() > 0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            {{ pendingOrdersCount() }} orders need attention
+          </div>
+        </div>
+        
+        <div class="pending-orders-grid">
+          <div *ngFor="let order of pendingOrders()" class="order-card urgent">
+            <div class="order-header">
+              <h4>Order #{{ order.id }}</h4>
+              <span class="order-date">{{ order.date | date:'short' }}</span>
+            </div>
+            <div class="customer-info">
+              <strong>{{ order.customerName }}</strong>
+              <span class="email">{{ order.customerEmail }}</span>
+            </div>
+            <div class="order-items">
+              <div *ngFor="let item of order.items" class="item-row">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="item-details">Size: {{ item.size }} | Qty: {{ item.quantity }}</span>
+                <span class="item-price">${{ item.price | number:'1.2-2' }}</span>
+              </div>
+            </div>
+            <div class="order-total">
+              <strong>Total: ${{ order.total | number:'1.2-2' }}</strong>
+            </div>
+            <div class="order-actions">
+              <button class="action-btn confirm" (click)="confirmOrder(order.id)">Confirm Order</button>
+              <button class="action-btn cancel" (click)="cancelOrder(order.id)">Cancel</button>
+              <button class="action-btn view" (click)="viewOrder(order.id)">View Details</button>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="pendingOrdersCount() === 0" class="no-pending-orders">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <h3>All Caught Up!</h3>
+          <p>No pending orders at the moment.</p>
+        </div>
+      </div>
+
+      <!-- Legacy Orders Management -->
+      <div *ngIf="activeTab() === 'orders'" class="orders-section">
+        <div class="section-header">
+          <h2>Orders Management</h2>
+        </div>
+        <div class="coming-soon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+          </svg>
+          <h3>Coming Soon</h3>
+          <p>Order management features will be available soon</p>
+        </div>
+      </div>
+
+      <!-- Analytics -->
+      <div *ngIf="activeTab() === 'analytics'" class="analytics-section">
+        <div class="section-header">
+          <h2>Analytics Dashboard</h2>
+          <div class="date-range-selector">
+            <select [(ngModel)]="analyticsTimeRange" class="time-range">
+              <option value="7d">Last 7 days</option>
+              <option value="30d">Last 30 days</option>
+              <option value="90d">Last 3 months</option>
+              <option value="1y">Last year</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="analytics-overview">
+          <div class="metric-card revenue">
+            <div class="metric-header">
+              <h4>Total Revenue</h4>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="metric-value">${{ totalRevenue() | number:'1.2-2' }}</div>
+            <div class="metric-change positive">+12.3% from last period</div>
+          </div>
+          
+          <div class="metric-card orders">
+            <div class="metric-header">
+              <h4>Total Orders</h4>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              </svg>
+            </div>
+            <div class="metric-value">{{ totalOrdersCount() }}</div>
+            <div class="metric-change positive">+8.7% from last period</div>
+          </div>
+          
+          <div class="metric-card customers">
+            <div class="metric-header">
+              <h4>New Customers</h4>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="metric-value">{{ newCustomersCount() }}</div>
+            <div class="metric-change positive">+15.2% from last period</div>
+          </div>
+          
+          <div class="metric-card conversion">
+            <div class="metric-header">
+              <h4>Conversion Rate</h4>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3v18h18v-2H5V3H3z"/>
+                <path d="M17 7v8l-5-3-3 2.5V7h8z"/>
+              </svg>
+            </div>
+            <div class="metric-value">{{ conversionRate() }}%</div>
+            <div class="metric-change negative">-2.1% from last period</div>
+          </div>
+        </div>
+        
+        <div class="analytics-charts">
+          <div class="chart-container">
+            <h4>Sales Overview</h4>
+            <div class="chart-placeholder">
+              <svg width="100%" height="300" viewBox="0 0 400 200">
+                <defs>
+                  <linearGradient id="salesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:0.3"/>
+                    <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M 0 180 Q 50 120 100 140 T 200 100 T 300 80 T 400 60" 
+                      stroke="#4f46e5" stroke-width="3" fill="none"/>
+                <path d="M 0 180 Q 50 120 100 140 T 200 100 T 300 80 T 400 60 L 400 200 L 0 200 Z" 
+                      fill="url(#salesGradient)"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <h4>Top Products</h4>
+            <div class="top-products-list">
+              <div class="product-rank" *ngFor="let product of topProducts(); let i = index">
+                <span class="rank">{{ i + 1 }}</span>
+                <span class="product-name">{{ product.name }}</span>
+                <span class="sales-count">{{ product.salesCount }} sold</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="analytics-table">
+          <h4>Recent Activity</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let activity of recentActivity()">
+                <td>{{ activity.date | date:'short' }}</td>
+                <td>{{ activity.type }}</td>
+                <td>{{ activity.customer }}</td>
+                <td class="amount">${{ activity.amount | number:'1.2-2' }}</td>
+                <td>
+                  <span class="activity-status" [ngClass]="activity.status">{{ activity.status | titlecase }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

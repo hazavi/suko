@@ -1,0 +1,144 @@
+<header class="header">
+  <div class="header-container">
+    
+    <!-- Left side: Logo + Navigation -->
+    <div class="header-left">
+      <!-- Logo -->
+      <div class="logo-section">
+        <a routerLink="/" class="logo">
+          <img src="suko_black.png" alt="SUKO" class="logo-img">
+        </a>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="main-nav">
+      <!-- Shop Dropdown -->
+      <div class="nav-item dropdown" 
+           (mouseenter)="showShopDropdown.set(true)"
+           (mouseleave)="showShopDropdown.set(false)">
+        <button class="nav-link dropdown-toggle">
+          SHOP
+          <svg class="dropdown-arrow" width="8" height="5" viewBox="0 0 8 5">
+            <path d="M0 0 L4 4 L8 0" stroke="currentColor" fill="none" stroke-width="1.5"/>
+          </svg>
+        </button>
+        
+        <div class="dropdown-menu" [class.show]="showShopDropdown()">
+          <div class="dropdown-content">
+            <div class="dropdown-section">
+              <h4>CLOTHING</h4>
+              <ul>
+                <li><a routerLink="/new-arrivals" class="dropdown-link">NEW ARRIVALS</a></li>
+                <li><a routerLink="/tees" class="dropdown-link">TEES</a></li>
+                <li><a routerLink="/sweats" class="dropdown-link">SWEATS</a></li>
+                <li><a routerLink="/tops-shirts" class="dropdown-link">TOPS & SHIRTS</a></li>
+                <li><a routerLink="/knits" class="dropdown-link">KNITS</a></li>
+                <li><a routerLink="/outerwear" class="dropdown-link">OUTERWEAR</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-section">
+              <h4>BOTTOMS</h4>
+              <ul>
+                <li><a routerLink="/denim" class="dropdown-link">DENIM</a></li>
+                <li><a routerLink="/shorts" class="dropdown-link">SHORTS</a></li>
+                <li><a routerLink="/pants" class="dropdown-link">PANTS</a></li>
+              </ul>
+            </div>
+            <div class="dropdown-section">
+              <h4>ACCESSORIES</h4>
+              <ul>
+                <li><a routerLink="/headwear" class="dropdown-link">HEADWEAR</a></li>
+                <li><a routerLink="/sunglasses" class="dropdown-link">SUNGLASSES</a></li>
+                <li><a routerLink="/accessories" class="dropdown-link">ACCESSORIES</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a routerLink="/features" class="nav-link">FEATURES</a>
+      
+      <!-- Support Dropdown -->
+      <div class="nav-item dropdown"
+           (mouseenter)="showSupportDropdown.set(true)"
+           (mouseleave)="showSupportDropdown.set(false)">
+        <button class="nav-link dropdown-toggle">
+          SUPPORT
+          <svg class="dropdown-arrow" width="8" height="5" viewBox="0 0 8 5">
+            <path d="M0 0 L4 4 L8 0" stroke="currentColor" fill="none" stroke-width="1.5"/>
+          </svg>
+        </button>
+        
+        <div class="dropdown-menu" [class.show]="showSupportDropdown()">
+          <div class="dropdown-content">
+            <div class="dropdown-section">
+              <ul>
+                <li><a href="#" class="dropdown-link">CONTACT</a></li>
+                <li><a href="#" class="dropdown-link">FAQ</a></li>
+                <li><a href="#" class="dropdown-link">SIZE GUIDE</a></li>
+                <li><a href="#" class="dropdown-link">SHIPPING</a></li>
+                <li><a href="#" class="dropdown-link">RETURNS</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </div>
+
+    <!-- Right section -->
+    <div class="header-right">
+      <!-- Search -->
+      <button class="icon-btn search-btn" (click)="toggleSearch()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M21 21L15.5 15.5M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="btn-text">SEARCH</span>
+      </button>
+
+      <!-- Currency/Language Selector -->
+      <div class="currency-selector dropdown"
+           (mouseenter)="showCurrencyDropdown.set(true)"
+           (mouseleave)="showCurrencyDropdown.set(false)">
+        <button class="icon-btn dropdown-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V9Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+          <span class="btn-text">{{ selectedCurrency() }}</span>
+        </button>
+        
+        <div class="dropdown-menu currency-menu" [class.show]="showCurrencyDropdown()">
+          <div class="dropdown-content">
+            <div class="dropdown-section">
+              <ul>
+                <li><button (click)="setCurrency('DK / kr')" class="dropdown-link">DK / kr</button></li>
+                <li><button (click)="setCurrency('NL / €')" class="dropdown-link">NL / €</button></li>
+                <li><button (click)="setCurrency('US / $')" class="dropdown-link">US / $</button></li>
+                <li><button (click)="setCurrency('UK / £')" class="dropdown-link">UK / £</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shopping Bag -->
+      <button class="icon-btn bag-btn" (click)="openBag()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M6 2L3 6V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M8 6V10C8 11.1 8.9 12 10 12H14C15.1 12 16 11.1 16 10V6" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+        <span class="btn-text">BAG</span>
+        <span class="bag-count" *ngIf="bagCount() > 0">{{ bagCount() }}</span>
+      </button>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()" [class.active]="showMobileMenu()">
+        <div class="hamburger">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>

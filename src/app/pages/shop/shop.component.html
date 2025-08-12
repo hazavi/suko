@@ -1,0 +1,34 @@
+<div class="shop">
+  <div class="container">
+    <!-- Category Header -->
+    <div class="category-header">
+      <h1 class="category-title">{{ getCategoryTitle() }}</h1>
+      <p class="product-count">{{ filteredProducts.length }} products</p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <a [routerLink]="['/product', product.id]" class="product-link">
+          <div class="product-image">
+            <img [src]="product.images[0]" [alt]="product.name" class="product-img">
+            <div *ngIf="!product.inStock" class="sold-out-overlay">SOLD OUT</div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <div class="product-price">
+              <span class="price" [class.sale]="product.originalPrice">€{{ product.price }}</span>
+              <span *ngIf="product.originalPrice" class="original-price">€{{ product.originalPrice }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredProducts.length === 0" class="empty-state">
+      <h3>No products found</h3>
+      <p>Check back soon for new arrivals</p>
+    </div>
+  </div>
+</div>

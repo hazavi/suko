@@ -1,0 +1,8 @@
+<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#666"/>
+  <rect x="50" y="50" width="300" height="400" fill="#555"/>
+  <circle cx="200" cy="200" r="30" fill="#999" opacity="0.5"/>
+  <circle cx="180" cy="220" r="20" fill="#999" opacity="0.3"/>
+  <circle cx="220" cy="220" r="20" fill="#999" opacity="0.3"/>
+  <text x="200" y="300" text-anchor="middle" font-family="Arial" font-size="16" fill="#fff">BODY SCAN TEE</text>
+</svg>
