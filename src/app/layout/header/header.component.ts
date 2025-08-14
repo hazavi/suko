@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   showCurrencyDropdown = signal(false);
   showSearch = signal(false);
   showMobileMenu = signal(false);
+  showSidebar = signal(false);
+  expandedSection = signal<string | null>(null);
   selectedCurrency = signal('NL / €');
   bagCount = signal(0);
   searchQuery = '';
@@ -68,10 +70,33 @@ export class HeaderComponent implements OnInit {
     this.showMobileMenu.set(false);
   }
 
+  toggleSidebar() {
+    this.showSidebar.set(!this.showSidebar());
+    // Don't auto-expand any section by default
+    if (!this.showSidebar()) {
+      this.expandedSection.set(null);
+    }
+  }
+
+  closeSidebar() {
+    this.showSidebar.set(false);
+    this.expandedSection.set(null);
+  }
+
+  toggleSidebarSection(section: string) {
+    if (this.expandedSection() === section) {
+      this.expandedSection.set(null);
+    } else {
+      this.expandedSection.set(section);
+    }
+  }
+
   @HostListener('document:keydown.escape')
   onEscapeKey() {
     this.showSearch.set(false);
     this.showMobileMenu.set(false);
+    this.showSidebar.set(false);
+    this.expandedSection.set(null);
   }
 
   @HostListener('document:click', ['$event'])
@@ -81,6 +106,13 @@ export class HeaderComponent implements OnInit {
       this.showShopDropdown.set(false);
       this.showSupportDropdown.set(false);
       this.showCurrencyDropdown.set(false);
+    }
+    
+    // Close sidebar if clicking outside
+    if (!target.closest('.sidebar') && !target.closest('.sidebar-toggle')) {
+      if (this.showSidebar()) {
+        this.closeSidebar();
+      }
     }
   }
 }
