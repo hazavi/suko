@@ -20,10 +20,6 @@
     </div>
     <!-- Right section -->
     <div class="header-right">
-      <!-- Search -->
-      <button class="icon-btn search-btn" (click)="toggleSearch()">
-        <span class="btn-text">SEARCH</span>
-      </button>
 
       <!-- Currency/Language Selector -->
       <div class="currency-selector dropdown"
@@ -47,13 +43,18 @@
         </div>
       </div>
 
+      <!-- Search -->
+      <button class="icon-btn search-btn" (click)="toggleSearch()">
+        <span class="btn-text">SEARCH</span>
+      </button>
+
       <!-- Shopping Bag -->
       <button class="icon-btn bag-btn" (click)="openBag()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M6 2L3 6V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="2" fill="none"/>
           <path d="M8 6V10C8 11.1 8.9 12 10 12H14C15.1 12 16 11.1 16 10V6" stroke="currentColor" stroke-width="2" fill="none"/>
         </svg>
-        <span class="bag-count" *ngIf="bagCount() > 0">{{ bagCount() }}</span>
+        <span class="bag-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
       </button>
     </div>
   </div>

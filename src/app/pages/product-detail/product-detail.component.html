@@ -1,0 +1,91 @@
+<div class="product-detail" *ngIf="product()">
+  <div class="container">
+    <div class="product-content">
+      <!-- Product Images -->
+      <div class="product-images">
+        <div class="main-image">
+          <img [src]="selectedImage()" [alt]="product()!.name" class="main-img">
+        </div>
+        <div class="thumbnail-images" *ngIf="product()!.images.length > 1">
+          <button 
+            *ngFor="let image of product()!.images" 
+            (click)="selectImage(image)"
+            [class.active]="selectedImage() === image"
+            class="thumbnail-btn">
+            <img [src]="image" [alt]="product()!.name" class="thumbnail-img">
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <h1 class="product-name">{{ product()!.name }}</h1>
+        
+        <div class="product-price">
+          <span class="price" [class.sale]="product()!.originalPrice">€{{ product()!.price }}</span>
+          <span *ngIf="product()!.originalPrice" class="original-price">€{{ product()!.originalPrice }}</span>
+        </div>
+
+        <div class="product-description">
+          <p>{{ product()!.description }}</p>
+        </div>
+
+        <!-- Size Selection -->
+        <div class="size-selection" *ngIf="product()!.sizes.length > 0">
+          <h3>Size</h3>
+          <div class="size-options">
+            <button 
+              *ngFor="let size of product()!.sizes"
+              [class.selected]="selectedSize() === size"
+              (click)="selectSize(size)"
+              class="size-btn">
+              {{ size }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Color Selection -->
+        <div class="color-selection" *ngIf="product()!.colors.length > 0">
+          <h3>Color</h3>
+          <div class="color-options">
+            <button 
+              *ngFor="let color of product()!.colors"
+              [class.selected]="selectedColor() === color"
+              (click)="selectColor(color)"
+              class="color-btn">
+              {{ color }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Add to Cart -->
+        <div class="add-to-cart">
+          <button 
+            [disabled]="!product()!.inStock"
+            (click)="addToCart()"
+            class="add-to-cart-btn">
+            {{ product()!.inStock ? 'ADD TO BAG' : 'SOLD OUT' }}
+          </button>
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-details">
+          <div class="detail-item">
+            <strong>Category:</strong> {{ product()!.category | titlecase }}
+          </div>
+          <div class="detail-item">
+            <strong>Availability:</strong> 
+            <span [class]="product()!.inStock ? 'in-stock' : 'out-of-stock'">
+              {{ product()!.inStock ? 'In Stock' : 'Out of Stock' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="!product()" class="loading">
+  <div class="loading-spinner"></div>
+</div>

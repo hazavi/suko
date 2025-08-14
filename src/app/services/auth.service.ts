@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SnackbarService } from './snackbar.service';
 
 export interface AdminUser {
   uid: string;
@@ -11,6 +12,7 @@ export interface AdminUser {
   providedIn: 'root'
 })
 export class AuthService {
+  private snackbarService = inject(SnackbarService);
   private currentUserSubject = new BehaviorSubject<AdminUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   
@@ -37,7 +39,9 @@ export class AuthService {
       
       localStorage.setItem('adminUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
+      this.snackbarService.success('Successfully logged in!');
     } else {
+      this.snackbarService.error('Invalid email or password');
       throw new Error('Invalid credentials');
     }
   }
@@ -45,6 +49,7 @@ export class AuthService {
   async logout(): Promise<void> {
     localStorage.removeItem('adminUser');
     this.currentUserSubject.next(null);
+    this.snackbarService.info('Logged out successfully');
   }
 
   get isAuthenticated(): boolean {

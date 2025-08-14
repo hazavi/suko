@@ -84,10 +84,15 @@
   transition: all 0.3s ease;
   padding: 8px;
   border-radius: 6px;
+  outline: none; // Remove focus outline
 }
 
 .logo:hover {
   transform: scale(1.02);
+}
+
+.logo:focus {
+  outline: none; // Ensure no outline on focus
 }
 
 .logo-img {
@@ -207,10 +212,16 @@
   display: block;
   text-decoration: none;
   letter-spacing: 0.3px;
+  outline: none; // Remove focus outline
 }
 
 .dropdown-link:hover {
   background: rgba(0, 0, 0, 0.04);
+}
+
+.dropdown-link:focus {
+  outline: none; // Ensure no outline on focus
+  background: rgba(0, 0, 0, 0.06); // Subtle focus indicator
 }
 
 .sidebar-overlay {
@@ -419,6 +430,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  outline: none; // Remove focus outline
 }
 
 .sidebar-link:hover {
@@ -426,6 +438,11 @@
   transform: translateX(4px);
   color: #000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sidebar-link:focus {
+  outline: none; // Ensure no outline on focus
+  background: rgba(0, 0, 0, 0.08); // Subtle focus indicator
 }
 
 .sidebar-link:active {

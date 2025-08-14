@@ -1,4 +1,6 @@
 // Firebase configuration
+console.log('Loading Firebase config...');
+
 export const firebaseConfig = {
   apiKey: "AIzaSyDzNDLO5LlWgJNkgFx2IbrHRoOirmOmLtY",
   authDomain: "suko-d1871.firebaseapp.com",

@@ -2,7 +2,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-image">
-      <img src="/assets/hero-image.svg" alt="Suko Collection" class="hero-img">
+      <img src="/hero-image.svg" alt="Suko Collection" class="hero-img">
     </div>
   </section>
 
@@ -22,6 +22,14 @@
                 <span *ngIf="product.originalPrice" class="original-price">€{{ product.originalPrice }}</span>
               </div>
               <div *ngIf="!product.inStock" class="sold-out">SOLD OUT</div>
+              <button 
+                *ngIf="product.inStock" 
+                class="add-to-cart-btn"
+                (click)="addToCart(product, $event)"
+                type="button"
+              >
+                Add to Cart
+              </button>
             </div>
           </a>
         </div>

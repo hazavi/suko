@@ -230,3 +230,29 @@
     font-size: 1.75rem;
   }
 }
+
+// Add to cart button
+.add-to-cart-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: var(--primary-black);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  
+  &:hover {
+    background: var(--soft-black);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}

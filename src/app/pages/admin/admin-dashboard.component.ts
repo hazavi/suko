@@ -1,9 +1,10 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ProductService, Product } from '../../services/product.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,6 +14,7 @@ import { ProductService, Product } from '../../services/product.service';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
+  private snackbarService = inject(SnackbarService);
   activeTab = signal<'products' | 'add-product' | 'categories' | 'orders' | 'analytics' | 'all-orders' | 'pending-orders'>('products');
   editingProduct = signal<Product | null>(null);
   products: Product[] = [];
@@ -275,10 +277,10 @@ export class AdminDashboardComponent implements OnInit {
       this.setActiveTab('products');
       
       // Show success message
-      alert(`Product ${this.editingProduct() ? 'updated' : 'created'} successfully!`);
+      this.snackbarService.success(`Product ${this.editingProduct() ? 'updated' : 'created'} successfully!`);
     } catch (error) {
       console.error('Error saving product:', error);
-      alert('Error saving product. Please try again.');
+      this.snackbarService.error('Error saving product. Please try again.');
     } finally {
       this.isSaving = false;
     }
@@ -288,9 +290,10 @@ export class AdminDashboardComponent implements OnInit {
     if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
       try {
         await this.productService.deleteProduct(id);
+        this.snackbarService.success('Product deleted successfully!');
       } catch (error) {
         console.error('Error deleting product:', error);
-        alert('Error deleting product. Please try again.');
+        this.snackbarService.error('Error deleting product. Please try again.');
       }
     }
   }

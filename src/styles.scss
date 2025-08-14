@@ -72,10 +72,31 @@ a {
   color: inherit;
   text-decoration: none;
   transition: var(--transition);
+  outline: none; // Remove focus outline globally
 }
 
 a:hover {
   opacity: 0.8;
+}
+
+a:focus {
+  outline: none; // Ensure no outline on focus
+}
+
+// Remove focus outline from buttons and interactive elements
+button:focus,
+.btn:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+// Optional: Add subtle focus indicators for accessibility
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 button {

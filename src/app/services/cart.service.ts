@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Product } from './product.service';
+import { SnackbarService } from './snackbar.service';
 
 export interface CartItem {
   product: Product;
@@ -12,8 +13,19 @@ export interface CartItem {
   providedIn: 'root'
 })
 export class CartService {
+  private snackbarService = inject(SnackbarService);
   private cartItems = signal<CartItem[]>([]);
   public cartItems$ = this.cartItems.asReadonly();
+  
+  // Computed cart count
+  public cartCount = computed(() => 
+    this.cartItems().reduce((total, item) => total + item.quantity, 0)
+  );
+
+  // Computed cart total
+  public cartTotal = computed(() =>
+    this.cartItems().reduce((total, item) => total + (item.product.price * item.quantity), 0)
+  );
 
   addToCart(product: Product, quantity: number = 1, size?: string, color?: string) {
     const existingItemIndex = this.cartItems().findIndex(
@@ -26,6 +38,7 @@ export class CartService {
       const updatedItems = [...this.cartItems()];
       updatedItems[existingItemIndex].quantity += quantity;
       this.cartItems.set(updatedItems);
+      this.snackbarService.success(`Updated ${product.name} quantity in cart`);
     } else {
       const newItem: CartItem = {
         product,
@@ -34,6 +47,7 @@ export class CartService {
         color
       };
       this.cartItems.set([...this.cartItems(), newItem]);
+      this.snackbarService.success(`Added ${product.name} to cart`);
     }
   }
 
@@ -44,6 +58,7 @@ export class CartService {
                 item.color === color)
     );
     this.cartItems.set(filteredItems);
+    this.snackbarService.info('Item removed from cart');
   }
 
   updateQuantity(productId: string, quantity: number, size?: string, color?: string) {

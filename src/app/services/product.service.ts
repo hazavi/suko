@@ -30,19 +30,30 @@ export class ProductService {
   }
 
   private loadProductsFromFirebase() {
+    console.log('Attempting to load products from Firebase...');
     const productsRef = ref(this.database, 'products');
+    
     onValue(productsRef, (snapshot) => {
+      console.log('Firebase snapshot received:', snapshot.exists());
       const data = snapshot.val();
+      console.log('Firebase data:', data);
+      
       if (data) {
         const products: Product[] = Object.keys(data).map(key => ({
           id: key,
           ...data[key]
         }));
+        console.log('Processed products:', products);
         this.productsSubject.next(products);
       } else {
+        console.log('No products found in Firebase, loading mock data...');
         // Load initial mock data if no products exist
         this.loadInitialMockData();
       }
+    }, (error) => {
+      console.error('Firebase error:', error);
+      console.log('Loading mock data due to Firebase error...');
+      this.loadInitialMockData();
     });
   }
 

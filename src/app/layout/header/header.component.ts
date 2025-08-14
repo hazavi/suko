@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
   showSidebar = signal(false);
   expandedSection = signal<string | null>(null);
   selectedCurrency = signal('NL / €');
-  bagCount = signal(0);
   searchQuery = '';
 
   constructor(
@@ -30,13 +29,13 @@ export class HeaderComponent implements OnInit {
     private searchService: SearchService
   ) {}
 
-  ngOnInit() {
-    // Update bag count when cart changes
-    this.updateBagCount();
+  // Get cart count from service
+  get cartCount() {
+    return this.cartService.cartCount();
   }
 
-  private updateBagCount() {
-    this.bagCount.set(this.cartService.getTotalItems());
+  ngOnInit() {
+    // Cart count is now reactive through computed signal
   }
 
   toggleSearch() {
