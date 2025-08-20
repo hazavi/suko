@@ -1,47 +1,8 @@
 <div class="home">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-image">
-      <img src="/hero-image.svg" alt="Suko Collection" class="hero-img">
-    </div>
-  </section>
-
-  <!-- Featured Products -->
-  <section class="featured-products">
-    <div class="container">
-      <div class="products-grid">
-        <div class="product-card" *ngFor="let product of featuredProducts">
-          <a [routerLink]="['/product', product.id]" class="product-link">
-            <div class="product-image">
-              <img [src]="product.images[0] || '/assets/placeholder.jpg'" [alt]="product.name" class="product-img">
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <div class="product-price">
-                <span class="price" [class.sale]="product.originalPrice">€{{ product.price }}</span>
-                <span *ngIf="product.originalPrice" class="original-price">€{{ product.originalPrice }}</span>
-              </div>
-              <div *ngIf="!product.inStock" class="sold-out">SOLD OUT</div>
-              <button 
-                *ngIf="product.inStock" 
-                class="add-to-cart-btn"
-                (click)="addToCart(product, $event)"
-                type="button"
-              >
-                Add to Cart
-              </button>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter Section -->
-  <section class="newsletter">
-    <div class="newsletter-content">
-      <h2>NEWSLETTER</h2>
-      <p>Stay updated with the latest releases and exclusive offers</p>
+  <!-- Centered Hero Image -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <img src="/home_image.jpg" alt="Suko" class="hero-image">
     </div>
   </section>
 </div>
