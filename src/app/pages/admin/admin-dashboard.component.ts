@@ -15,7 +15,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 })
 export class AdminDashboardComponent implements OnInit {
   private snackbarService = inject(SnackbarService);
-  activeTab = signal<'products' | 'add-product' | 'categories' | 'orders' | 'analytics' | 'all-orders' | 'pending-orders'>('products');
+  activeTab = signal<'products' | 'add-product' | 'edit-product' | 'categories' | 'orders' | 'analytics' | 'all-orders' | 'pending-orders'>('products');
   editingProduct = signal<Product | null>(null);
   products: Product[] = [];
   filteredProducts: Product[] = [];
@@ -40,12 +40,14 @@ export class AdminDashboardComponent implements OnInit {
     originalPrice: 0,
     category: '',
     inStock: true,
-    featured: false
+    featured: false,
+    isNewArrival: false
   };
 
   sizesInput = '';
   colorsInput = '';
   imagesInput = '';
+  colorImages: { [color: string]: string[] } = {};
   isSaving = false;
 
   // Available options
@@ -147,7 +149,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  setActiveTab(tab: 'products' | 'add-product' | 'categories' | 'orders' | 'analytics' | 'all-orders' | 'pending-orders') {
+  setActiveTab(tab: 'products' | 'add-product' | 'edit-product' | 'categories' | 'orders' | 'analytics' | 'all-orders' | 'pending-orders') {
     this.activeTab.set(tab);
     if (tab === 'add-product') {
       this.resetForm();
@@ -236,6 +238,35 @@ export class AdminDashboardComponent implements OnInit {
     return colorMap[color] || '#CCCCCC';
   }
 
+  // Color-specific image management
+  getColorsArray(): string[] {
+    return this.colorsInput.split(',').map(c => c.trim()).filter(c => c);
+  }
+
+  addColorImage(color: string, imageUrl: string) {
+    if (!this.colorImages[color]) {
+      this.colorImages[color] = [];
+    }
+    if (imageUrl.trim() && !this.colorImages[color].includes(imageUrl.trim())) {
+      this.colorImages[color].push(imageUrl.trim());
+    }
+  }
+
+  removeColorImage(color: string, imageUrl: string) {
+    if (this.colorImages[color]) {
+      this.colorImages[color] = this.colorImages[color].filter(img => img !== imageUrl);
+    }
+  }
+
+  getColorImages(color: string): string[] {
+    return this.colorImages[color] || [];
+  }
+
+  setColorImages(color: string, images: string) {
+    const imageArray = images.split(',').map(img => img.trim()).filter(img => img);
+    this.colorImages[color] = imageArray;
+  }
+
   editProduct(product: Product) {
     this.editingProduct.set(product);
     this.productForm = {
@@ -245,12 +276,17 @@ export class AdminDashboardComponent implements OnInit {
       originalPrice: product.originalPrice || 0,
       category: product.category,
       inStock: product.inStock,
-      featured: product.featured
+      featured: product.featured,
+      isNewArrival: product.isNewArrival
     };
     this.sizesInput = product.sizes.join(', ');
     this.colorsInput = product.colors.join(', ');
     this.imagesInput = product.images.join(', ');
-    this.setActiveTab('add-product');
+    
+    // Load color-specific images
+    this.colorImages = product.colorImages ? { ...product.colorImages } : {};
+    
+    this.setActiveTab('edit-product');
   }
 
   async saveProduct() {
@@ -263,6 +299,7 @@ export class AdminDashboardComponent implements OnInit {
         sizes: this.sizesInput.split(',').map(s => s.trim()).filter(s => s),
         colors: this.colorsInput.split(',').map(c => c.trim()).filter(c => c),
         images: this.imagesInput.split(',').map(i => i.trim()).filter(i => i),
+        colorImages: Object.keys(this.colorImages).length > 0 ? this.colorImages : undefined,
         createdAt: Date.now(),
         updatedAt: Date.now()
       };
@@ -313,11 +350,13 @@ export class AdminDashboardComponent implements OnInit {
       originalPrice: 0,
       category: '',
       inStock: true,
-      featured: false
+      featured: false,
+      isNewArrival: false
     };
     this.sizesInput = '';
     this.colorsInput = '';
     this.imagesInput = '';
+    this.colorImages = {};
   }
 
   // Orders computed properties

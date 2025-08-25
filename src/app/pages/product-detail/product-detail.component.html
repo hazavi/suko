@@ -1,14 +1,25 @@
 <div class="product-detail" *ngIf="product()">
   <div class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <a routerLink="/shop" class="breadcrumb-link">Shop</a>
+      <span class="breadcrumb-separator">/</span>
+      <a [routerLink]="getCategoryRoute()" class="breadcrumb-link">{{ getCategoryDisplayName() }}</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">{{ product()!.name }}</span>
+    </nav>
+
     <div class="product-content">
       <!-- Product Images -->
       <div class="product-images">
         <div class="main-image">
           <img [src]="selectedImage()" [alt]="product()!.name" class="main-img">
         </div>
-        <div class="thumbnail-images" *ngIf="product()!.images.length > 1">
+        <div class="thumbnail-images" *ngIf="getCurrentImages().length > 1">
           <button 
-            *ngFor="let image of product()!.images" 
+            *ngFor="let image of getCurrentImages()" 
             (click)="selectImage(image)"
             [class.active]="selectedImage() === image"
             class="thumbnail-btn">
@@ -19,15 +30,11 @@
 
       <!-- Product Info -->
       <div class="product-info">
-        <h1 class="product-name">{{ product()!.name }}</h1>
+        <h1 class="product-name">{{ getProductDisplayName() }}</h1>
         
         <div class="product-price">
           <span class="price" [class.sale]="product()!.originalPrice">€{{ product()!.price }}</span>
           <span *ngIf="product()!.originalPrice" class="original-price">€{{ product()!.originalPrice }}</span>
-        </div>
-
-        <div class="product-description">
-          <p>{{ product()!.description }}</p>
         </div>
 
         <!-- Size Selection -->
@@ -46,14 +53,17 @@
 
         <!-- Color Selection -->
         <div class="color-selection" *ngIf="product()!.colors.length > 0">
-          <h3>Color</h3>
+          <h3>{{ selectedColor() }}</h3>
           <div class="color-options">
             <button 
               *ngFor="let color of product()!.colors"
               [class.selected]="selectedColor() === color"
               (click)="selectColor(color)"
-              class="color-btn">
-              {{ color }}
+              class="color-btn"
+              [title]="color">
+              <div class="color-preview">
+                <img [src]="getColorPreviewImage(color)" [alt]="color" class="color-image">
+              </div>
             </button>
           </div>
         </div>
@@ -70,9 +80,6 @@
 
         <!-- Product Details -->
         <div class="product-details">
-          <div class="detail-item">
-            <strong>Category:</strong> {{ product()!.category | titlecase }}
-          </div>
           <div class="detail-item">
             <strong>Availability:</strong> 
             <span [class]="product()!.inStock ? 'in-stock' : 'out-of-stock'">

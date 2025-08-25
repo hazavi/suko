@@ -8,12 +8,14 @@ export interface Product {
   description?: string;  // Made optional
   price: number;
   originalPrice?: number;
-  images: string[];
+  images: string[];  // Keep for backward compatibility
+  colorImages?: { [color: string]: string[] };  // New color-specific images
   category: string;
   sizes: string[];
   colors: string[];
   inStock: boolean;
   featured: boolean;
+  isNewArrival: boolean;  // Add new arrival field
   createdAt: number;
   updatedAt: number;
 }
@@ -70,6 +72,7 @@ export class ProductService {
         colors: ['Gray'],
         inStock: false,
         featured: true,
+        isNewArrival: true,
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -83,6 +86,7 @@ export class ProductService {
         colors: ['Blue'],
         inStock: true,
         featured: false,
+        isNewArrival: false,
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -96,6 +100,7 @@ export class ProductService {
         colors: ['Green'],
         inStock: true,
         featured: true,
+        isNewArrival: true,
         createdAt: Date.now(),
         updatedAt: Date.now()
       },
@@ -108,6 +113,7 @@ export class ProductService {
         colors: ['Red'],
         inStock: true,
         featured: false,
+        isNewArrival: false,
         createdAt: Date.now(),
         updatedAt: Date.now()
       }
@@ -157,6 +163,10 @@ export class ProductService {
 
   getFeaturedProducts(): Product[] {
     return this.productsSubject.value.filter(product => product.featured);
+  }
+
+  getNewArrivals(): Product[] {
+    return this.productsSubject.value.filter(product => product.isNewArrival);
   }
 
   getProductsByCategory(category: string): Product[] {

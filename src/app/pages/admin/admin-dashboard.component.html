@@ -280,7 +280,7 @@
       </div>
 
       <!-- Add/Edit Product Form -->
-      <div *ngIf="activeTab() === 'add-product' || editingProduct()" class="product-form-section">
+      <div *ngIf="activeTab() === 'add-product' || activeTab() === 'edit-product'" class="product-form-section">
         <div class="section-header">
           <h2>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h2>
           <button (click)="cancelEdit()" class="btn-ghost">
@@ -313,17 +313,13 @@
                   <label for="productCategory">Category *</label>
                   <select id="productCategory" [(ngModel)]="productForm.category" name="category" required>
                     <option value="">Select Category</option>
-                    <option value="new-arrivals">New Arrivals</option>
-                    <option value="tees">Tees</option>
-                    <option value="sweats">Sweats</option>
-                    <option value="tops-shirts">Tops & Shirts</option>
+                    <option value="t-shirt">T-Shirts</option>
+                    <option value="hoodies">Hoodies</option>
+                    <option value="shirts">Shirts</option>
                     <option value="knits">Knits</option>
-                    <option value="outerwear">Outerwear</option>
-                    <option value="denim">Denim</option>
+                    <option value="jackets">Jackets</option>
                     <option value="shorts">Shorts</option>
-                    <option value="pants">Pants</option>
-                    <option value="headwear">Headwear</option>
-                    <option value="sunglasses">Sunglasses</option>
+                    <option value="trousers">Trousers</option>
                     <option value="accessories">Accessories</option>
                   </select>
                 </div>
@@ -450,6 +446,37 @@
               </div>
             </div>
 
+            <!-- Color-Specific Images -->
+            <div class="form-section" *ngIf="getColorsArray().length > 0">
+              <h3>Color-Specific Images</h3>
+              <div class="color-images-container">
+                <div *ngFor="let color of getColorsArray()" class="color-image-group">
+                  <h4>{{ color }} Images</h4>
+                  <div class="form-group">
+                    <label [for]="'colorImages-' + color">{{ color }} Image URLs</label>
+                    <textarea 
+                      [id]="'colorImages-' + color"
+                      [value]="getColorImages(color).join(', ')"
+                      (input)="setColorImages(color, $any($event.target).value)"
+                      rows="3" 
+                      [placeholder]="'https://example.com/' + color.toLowerCase() + '1.jpg, https://example.com/' + color.toLowerCase() + '2.jpg'"
+                      class="color-textarea"></textarea>
+                    <small>Separate URLs with commas. These images will show when {{ color }} color is selected.</small>
+                  </div>
+                  
+                  <!-- Color Image Preview -->
+                  <div class="color-image-preview" *ngIf="getColorImages(color).length > 0">
+                    <div class="preview-grid">
+                      <div *ngFor="let image of getColorImages(color); let i = index" class="preview-item">
+                        <img [src]="image" [alt]="color + ' image ' + (i + 1)" loading="lazy">
+                        <span class="preview-label">{{ color }} {{ i + 1 }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!-- Settings -->
             <div class="form-section">
               <h3>Product Settings</h3>
@@ -466,6 +493,15 @@
                   <span class="checkmark"></span>
                   Featured Product
                   <small>Display in featured sections</small>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input [(ngModel)]="productForm.isNewArrival" name="isNewArrival" type="checkbox">
+                  <span class="checkmark"></span>
+                  New Arrival
+                  <small>Mark as new arrival item</small>
                 </label>
               </div>
             </div>
