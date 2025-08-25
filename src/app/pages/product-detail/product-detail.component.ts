@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,8 +21,19 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    public currencyService: CurrencyService
   ) {}
+  getDisplayPrice(product: Product): string {
+    const price = this.currencyService.convertFromEUR(product.price);
+    return price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  getDisplayOriginalPrice(product: Product): string {
+    if (!product.originalPrice) return '';
+    const price = this.currencyService.convertFromEUR(product.originalPrice);
+    return price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');

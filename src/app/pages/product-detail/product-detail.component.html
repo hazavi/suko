@@ -33,8 +33,12 @@
         <h1 class="product-name">{{ getProductDisplayName() }}</h1>
         
         <div class="product-price">
-          <span class="price" [class.sale]="product()!.originalPrice">€{{ product()!.price }}</span>
-          <span *ngIf="product()!.originalPrice" class="original-price">€{{ product()!.originalPrice }}</span>
+          <span class="price" [class.sale]="product()!.originalPrice">
+            {{ currencyService.getSymbol() }}{{ getDisplayPrice(product()!) }}
+          </span>
+          <span *ngIf="product()!.originalPrice" class="original-price">
+            {{ currencyService.getSymbol() }}{{ getDisplayOriginalPrice(product()!) }}
+          </span>
         </div>
 
         <!-- Size Selection -->

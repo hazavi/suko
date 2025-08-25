@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ProductService, Product } from '../../services/product.service';
+import { CurrencyService } from '../../services/currency.service';
 
 export type ViewMode = 'grid' | 'compact';
 
@@ -23,8 +24,19 @@ export class ShopComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    public currencyService: CurrencyService
   ) {}
+  getDisplayPrice(product: Product): string {
+    const price = this.currencyService.convertFromEUR(product.price);
+    return price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  getDisplayOriginalPrice(product: Product): string {
+    if (!product.originalPrice) return '';
+    const price = this.currencyService.convertFromEUR(product.originalPrice);
+    return price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
 
   ngOnInit() {
     // Initialize with current URL

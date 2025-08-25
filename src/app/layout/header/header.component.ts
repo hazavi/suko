@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { SearchService } from '../../services/search.service';
+import { CurrencyService, Currency } from '../../services/currency.service';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +22,28 @@ export class HeaderComponent implements OnInit {
   showSidebar = signal(false);
   expandedSection = signal<string | null>(null);
   selectedCurrency = signal('NL / €');
+  currencyMap: Record<string, Currency> = {
+    'DK / kr': 'DKK',
+    'SWE / sek': 'SWE',
+    'EUR / €': 'EUR',
+    'US / $': 'USD',
+    'UK / £': 'GBP',
+  };
   searchQuery = '';
 
   constructor(
     private cartService: CartService, 
     private router: Router,
-    private searchService: SearchService
-  ) {}
+    private searchService: SearchService,
+    public currencyService: CurrencyService
+  ) {
+    // Sync selector with service
+    const cur = this.currencyService.currency();
+    for (const [label, code] of Object.entries(this.currencyMap)) {
+      if (code === cur) this.selectedCurrency.set(label);
+    }
+  // No subscribe needed for signals
+  }
 
   // Get cart count from service
   get cartCount() {
@@ -54,6 +70,9 @@ export class HeaderComponent implements OnInit {
 
   setCurrency(currency: string) {
     this.selectedCurrency.set(currency);
+    if (this.currencyMap[currency]) {
+      this.currencyService.setCurrency(this.currencyMap[currency]);
+    }
     this.showCurrencyDropdown.set(false);
   }
 

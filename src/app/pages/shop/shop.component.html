@@ -52,8 +52,12 @@
           <div class="product-info">
             <h3 class="product-name">{{ product.name }}</h3>
             <div class="product-price">
-              <span class="price" [class.sale]="product.originalPrice">€{{ product.price }}</span>
-              <span *ngIf="product.originalPrice" class="original-price">€{{ product.originalPrice }}</span>
+              <span class="price" [class.sale]="product.originalPrice">
+                {{ currencyService.getSymbol() }}{{ getDisplayPrice(product) }}
+              </span>
+              <span *ngIf="product.originalPrice" class="original-price">
+                {{ currencyService.getSymbol() }}{{ getDisplayOriginalPrice(product) }}
+              </span>
             </div>
           </div>
         </a>

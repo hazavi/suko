@@ -12,9 +12,8 @@
 
 .header-container {
   display: grid;
-  grid-template-columns: 80px 1fr 200px;
+  grid-template-columns: 100px 1fr 200px;
   align-items: center;
-  padding: 0 2rem;
   max-width: 1400px;
   margin: 0 auto;
   height: 70px;
@@ -135,7 +134,9 @@
 .btn-text {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+
 }
 
 .bag-count {
