@@ -7,6 +7,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderSuccessComponent } from './pages/order-success/order-success.component';
+import { SupportComponent } from './pages/support/support.component';
 import { AdminLoginComponent } from './pages/admin/admin-login.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -36,13 +37,14 @@ export const routes: Routes = [
       { path: 'tops-shirts', component: ShopComponent },
       { path: 'outerwear', component: ShopComponent },
       { path: 'pants', component: ShopComponent },
-      { path: 'product/:id', component: ProductDetailComponent },
+      { path: 'product/:name', component: ProductDetailComponent },
       { path: 'bag', component: CartComponent },
       { path: 'cart', component: CartComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'order-success', component: OrderSuccessComponent },
       { path: 'features', component: HomeComponent }, // Placeholder
-      { path: 'support', component: HomeComponent }, // Placeholder
+      { path: 'support', component: SupportComponent },
+      { path: 'support/:section', component: SupportComponent },
     ]
   },
   {

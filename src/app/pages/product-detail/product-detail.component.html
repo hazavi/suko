@@ -16,10 +16,43 @@
       <div class="product-images">
         <div class="main-image">
           <img [src]="selectedImage()" [alt]="product()!.name" class="main-img">
+          
+          <!-- Slider Controls -->
+          <div class="slider-controls" *ngIf="getCurrentImages().length > 1">
+            <button 
+              class="slider-btn prev-btn" 
+              (click)="goToPreviousImage()"
+              [attr.aria-label]="'Previous image'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"></polyline>
+              </svg>
+            </button>
+            <button 
+              class="slider-btn next-btn" 
+              (click)="goToNextImage()"
+              [attr.aria-label]="'Next image'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,6 15,12 9,18"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Slider Dots -->
+          <div class="slider-dots" *ngIf="getCurrentImages().length > 1">
+            <button 
+              *ngFor="let image of getCurrentImages(); let i = index"
+              [class.active]="i === currentImageIndex()"
+              (click)="goToImage(i)"
+              class="dot-btn"
+              [attr.aria-label]="'Go to image ' + (i + 1)">
+              <span class="dot"></span>
+            </button>
+          </div>
         </div>
+        
         <div class="thumbnail-images" *ngIf="getCurrentImages().length > 1">
           <button 
-            *ngFor="let image of getCurrentImages()" 
+            *ngFor="let image of getCurrentImages(); let i = index" 
             (click)="selectImage(image)"
             [class.active]="selectedImage() === image"
             class="thumbnail-btn">
@@ -83,14 +116,14 @@
         </div>
 
         <!-- Product Details -->
-        <div class="product-details">
+        <!-- <div class="product-details">
           <div class="detail-item">
             <strong>Availability:</strong> 
             <span [class]="product()!.inStock ? 'in-stock' : 'out-of-stock'">
               {{ product()!.inStock ? 'In Stock' : 'Out of Stock' }}
             </span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

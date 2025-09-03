@@ -48,7 +48,6 @@
   background: #f8f9fa;
   border-radius: 8px;
   padding: 4px;
-  border: 1px solid #e9ecef;
 }
 
 .view-btn {
@@ -90,7 +89,6 @@
 
 .view-compact .product-card {
   background: white;
-  border: 1px solid #e9ecef;
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -119,13 +117,11 @@
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #f0f0f0;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  border-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 .product-link {

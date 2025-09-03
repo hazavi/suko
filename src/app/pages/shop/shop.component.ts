@@ -93,7 +93,7 @@ export class ShopComponent implements OnInit {
     } else {
       // Map route names to actual category names
       const categoryMap: { [key: string]: string } = {
-        't-shirt': 't-shirts',
+        't-shirts': 't-shirts',
         'hoodies': 'hoodies', 
         'shirts': 'shirts',
         'knits': 'knits',
@@ -156,5 +156,10 @@ export class ShopComponent implements OnInit {
     
     // Fall back to regular images
     return product.images[0] || '';
+  }
+
+  // Convert product name to URL-friendly slug
+  getProductSlug(productName: string): string {
+    return this.productService.getProductSlug(productName);
   }
 }

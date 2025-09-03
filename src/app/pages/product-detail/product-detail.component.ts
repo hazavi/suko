@@ -17,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
   selectedImage = signal<string>('');
   selectedSize = signal<string>('');
   selectedColor = signal<string>('');
+  currentImageIndex = signal<number>(0);
 
   constructor(
     private route: ActivatedRoute,
@@ -36,14 +37,14 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    const productId = this.route.snapshot.paramMap.get('id');
-    if (productId) {
-      this.loadProduct(productId);
+    const productName = this.route.snapshot.paramMap.get('name');
+    if (productName) {
+      this.loadProductByName(productName);
     }
   }
 
-  private loadProduct(id: string) {
-    this.productService.getProduct(id).subscribe(product => {
+  private loadProductByName(name: string) {
+    this.productService.getProductByName(name).subscribe(product => {
       if (product) {
         this.product.set(product);
         
@@ -63,12 +64,50 @@ export class ProductDetailComponent implements OnInit {
         } else {
           this.selectedImage.set(product.images[0] || '');
         }
+        
+        // Initialize image index
+        this.currentImageIndex.set(0);
       }
     });
   }
 
   selectImage(image: string) {
     this.selectedImage.set(image);
+    // Update current index when manually selecting an image
+    const images = this.getCurrentImages();
+    const index = images.indexOf(image);
+    if (index !== -1) {
+      this.currentImageIndex.set(index);
+    }
+  }
+
+  // Slider navigation methods
+  goToPreviousImage() {
+    const images = this.getCurrentImages();
+    if (images.length <= 1) return;
+    
+    const currentIndex = this.currentImageIndex();
+    const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+    this.currentImageIndex.set(newIndex);
+    this.selectedImage.set(images[newIndex]);
+  }
+
+  goToNextImage() {
+    const images = this.getCurrentImages();
+    if (images.length <= 1) return;
+    
+    const currentIndex = this.currentImageIndex();
+    const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+    this.currentImageIndex.set(newIndex);
+    this.selectedImage.set(images[newIndex]);
+  }
+
+  goToImage(index: number) {
+    const images = this.getCurrentImages();
+    if (index >= 0 && index < images.length) {
+      this.currentImageIndex.set(index);
+      this.selectedImage.set(images[index]);
+    }
   }
 
   selectSize(size: string) {
@@ -83,6 +122,7 @@ export class ProductDetailComponent implements OnInit {
     if (product && product.colorImages && product.colorImages[color]) {
       // Use the first image for the selected color
       this.selectedImage.set(product.colorImages[color][0]);
+      this.currentImageIndex.set(0); // Reset to first image
     }
   }
 

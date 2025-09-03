@@ -161,6 +161,16 @@ export class ProductService {
     });
   }
 
+  getProductByName(name: string): Observable<Product | null> {
+    return new Observable(observer => {
+      const products = this.productsSubject.value;
+      // Convert URL slug back to readable name and match
+      const searchName = this.getProductNameFromSlug(name);
+      const product = products.find(p => p.name.toLowerCase() === searchName.toLowerCase());
+      observer.next(product || null);
+    });
+  }
+
   getFeaturedProducts(): Product[] {
     return this.productsSubject.value.filter(product => product.featured);
   }
@@ -171,5 +181,15 @@ export class ProductService {
 
   getProductsByCategory(category: string): Product[] {
     return this.productsSubject.value.filter(product => product.category === category);
+  }
+
+  // Utility method to convert product name to URL-friendly format
+  getProductSlug(productName: string): string {
+    return encodeURIComponent(productName.toLowerCase().replace(/\s+/g, '-'));
+  }
+
+  // Utility method to convert URL slug back to product name
+  getProductNameFromSlug(slug: string): string {
+    return decodeURIComponent(slug.replace(/-/g, ' '));
   }
 }

@@ -44,7 +44,7 @@
     <!-- Products Grid -->
     <div class="products-container" [class]="'view-' + viewMode">
       <div class="product-card" *ngFor="let product of filteredProducts">
-        <a [routerLink]="['/product', product.id]" class="product-link">
+        <a [routerLink]="['/product', getProductSlug(product.name)]" class="product-link">
           <div class="product-image">
             <img [src]="getProductImage(product)" [alt]="product.name" class="product-img">
             <div *ngIf="!product.inStock" class="sold-out-overlay">SOLD OUT</div>

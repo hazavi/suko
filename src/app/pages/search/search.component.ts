@@ -20,7 +20,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private productService: ProductService
   ) {}
 
   ngOnInit() {
@@ -51,5 +52,10 @@ export class SearchComponent implements OnInit {
     if (event.key === 'Enter') {
       this.performSearch();
     }
+  }
+
+  // Convert product name to URL-friendly slug
+  getProductSlug(productName: string): string {
+    return this.productService.getProductSlug(productName);
   }
 }

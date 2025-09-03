@@ -106,25 +106,6 @@
         </div>
       </div>
 
-      <!-- Features Section -->
-      <div class="sidebar-section">
-        <div class="sidebar-section-header" (click)="toggleSidebarSection('features')">
-          <h3>FEATURES</h3>
-          <svg class="section-arrow" [class.rotated]="expandedSection() === 'features'" width="10" height="6" viewBox="0 0 12 8">
-            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
-        
-        <div class="sidebar-dropdown" [class.expanded]="expandedSection() === 'features'">
-          <ul>
-            <li><a routerLink="/features/sustainability" class="sidebar-link" (click)="closeSidebar()">Sustainability</a></li>
-            <li><a routerLink="/features/quality" class="sidebar-link" (click)="closeSidebar()">Quality</a></li>
-            <li><a routerLink="/features/innovation" class="sidebar-link" (click)="closeSidebar()">Innovation</a></li>
-            <li><a routerLink="/features/design" class="sidebar-link" (click)="closeSidebar()">Design Process</a></li>
-          </ul>
-        </div>
-      </div>
-
       <!-- Support Section -->
       <div class="sidebar-section">
         <div class="sidebar-section-header" (click)="toggleSidebarSection('support')">
@@ -136,11 +117,11 @@
         
         <div class="sidebar-dropdown" [class.expanded]="expandedSection() === 'support'">
           <ul>
-            <li><a href="#" class="sidebar-link" (click)="closeSidebar()">Contact</a></li>
-            <li><a href="#" class="sidebar-link" (click)="closeSidebar()">FAQ</a></li>
-            <li><a href="#" class="sidebar-link" (click)="closeSidebar()">Size Guide</a></li>
-            <li><a href="#" class="sidebar-link" (click)="closeSidebar()">Shipping</a></li>
-            <li><a href="#" class="sidebar-link" (click)="closeSidebar()">Returns</a></li>
+            <li><a routerLink="/support/contact" class="sidebar-link" (click)="closeSidebar()">Contact</a></li>
+            <li><a routerLink="/support/faq" class="sidebar-link" (click)="closeSidebar()">FAQ</a></li>
+            <li><a routerLink="/support/size-guide" class="sidebar-link" (click)="closeSidebar()">Size Guide</a></li>
+            <li><a routerLink="/support/shipping" class="sidebar-link" (click)="closeSidebar()">Shipping</a></li>
+            <li><a routerLink="/support/returns" class="sidebar-link" (click)="closeSidebar()">Returns</a></li>
           </ul>
         </div>
       </div>

@@ -1,0 +1,86 @@
+<div class="support-page">
+  <div class="container">
+    <!-- Navigation -->
+    <div class="support-nav">
+      <h2>Support</h2>
+      <div class="nav-sections">
+        <!-- Help Section -->
+        <div class="nav-category">
+          <h3>Help</h3>
+          <div class="nav-links">
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'contact'"
+              (click)="switchSection('contact')">
+              Contact
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'faq'"
+              (click)="switchSection('faq')">
+              FAQ
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'size-guide'"
+              (click)="switchSection('size-guide')">
+              Size Guide
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'shipping'"
+              (click)="switchSection('shipping')">
+              Shipping
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'returns'"
+              (click)="switchSection('returns')">
+              Returns
+            </button>
+          </div>
+        </div>
+
+        <!-- Company Section -->
+        <div class="nav-category">
+          <h3>Company</h3>
+          <div class="nav-links">
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'about'"
+              (click)="switchSection('about')">
+              About
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'careers'"
+              (click)="switchSection('careers')">
+              Careers
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'privacy-policy'"
+              (click)="switchSection('privacy-policy')">
+              Privacy
+            </button>
+            <button 
+              class="nav-link" 
+              [class.active]="currentSection === 'terms-of-service'"
+              (click)="switchSection('terms-of-service')">
+              Terms
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="support-content">
+      <div class="content-header">
+        <h1>{{ getCurrentSection().title }}</h1>
+      </div>
+      
+      <div class="content-body" [innerHTML]="getCurrentSection().content"></div>
+    </div>
+  </div>
+</div>
