@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   showMobileMenu = signal(false);
   showSidebar = signal(false);
   expandedSection = signal<string | null>(null);
-  selectedCurrency = signal('NL / €');
+  selectedCurrency = signal('EUR / €');
   currencyMap: Record<string, Currency> = {
     'DK / kr': 'DKK',
     'SWE / sek': 'SWE',

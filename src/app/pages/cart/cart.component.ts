@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,10 @@ import { CartService, CartItem } from '../../services/cart.service';
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    public currencyService: CurrencyService
+  ) {}
 
   ngOnInit() {
     this.cartItems = this.cartService.cartItems$();
@@ -30,6 +34,19 @@ export class CartComponent implements OnInit {
   }
 
   getSubtotal(): string {
-    return this.cartService.getTotalPrice().toFixed(2);
+    const subtotal = this.cartService.getTotalPrice();
+    const convertedPrice = this.currencyService.convertFromEUR(subtotal);
+    return convertedPrice.toFixed(2);
+  }
+
+  getDisplayPrice(price: number): string {
+    const convertedPrice = this.currencyService.convertFromEUR(price);
+    return convertedPrice.toFixed(2);
+  }
+
+  getItemTotal(item: CartItem): string {
+    const total = item.product.price * item.quantity;
+    const convertedTotal = this.currencyService.convertFromEUR(total);
+    return convertedTotal.toFixed(2);
   }
 }

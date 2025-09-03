@@ -1,0 +1,42 @@
+<div class="success-page">
+  <div class="container">
+    <div class="success-content">
+      <div class="success-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#27ae60" stroke-width="2" fill="none"/>
+          <path d="m9 12 2 2 4-4" stroke="#27ae60" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      
+      <h1>Order Confirmed!</h1>
+      <p class="success-message">
+        Thank you for your purchase. Your order has been successfully placed and is being processed.
+      </p>
+      
+      <div class="order-details">
+        <h2>Order Details</h2>
+        <div class="detail-row">
+          <span class="label">Order Number:</span>
+          <span class="value">#{{ orderNumber }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Status:</span>
+          <span class="value">Processing</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Estimated Delivery:</span>
+          <span class="value">3-5 business days</span>
+        </div>
+      </div>
+      
+      <p class="confirmation-note">
+        You will receive a confirmation email shortly with tracking information.
+      </p>
+      
+      <div class="success-actions">
+        <a routerLink="/shop" class="btn-primary">Continue Shopping</a>
+        <a routerLink="/" class="btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { ShopComponent } from './pages/shop/shop.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { OrderSuccessComponent } from './pages/order-success/order-success.component';
 import { AdminLoginComponent } from './pages/admin/admin-login.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -37,6 +39,8 @@ export const routes: Routes = [
       { path: 'product/:id', component: ProductDetailComponent },
       { path: 'bag', component: CartComponent },
       { path: 'cart', component: CartComponent },
+      { path: 'checkout', component: CheckoutComponent },
+      { path: 'order-success', component: OrderSuccessComponent },
       { path: 'features', component: HomeComponent }, // Placeholder
       { path: 'support', component: HomeComponent }, // Placeholder
     ]

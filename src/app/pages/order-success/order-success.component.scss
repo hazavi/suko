@@ -1,0 +1,148 @@
+.success-page {
+  min-height: 100vh;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.success-content {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.success-icon {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.success-content h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.success-message {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.order-details {
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.order-details h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+}
+
+.value {
+  color: #000;
+  font-weight: 600;
+}
+
+.confirmation-note {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.success-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: #000;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #333;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #666;
+  border: 1px solid #e0e0e0;
+}
+
+.btn-secondary:hover {
+  background: #f8f8f8;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .success-content {
+    padding: 40px 24px;
+  }
+
+  .success-content h1 {
+    font-size: 24px;
+  }
+
+  .success-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
