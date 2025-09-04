@@ -47,3 +47,11 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Ignore any nested .env files (e.g. moved to environments folder)
+**/.env
+src/environments/.env
+# Ignore actual Angular environment files so secrets aren't committed
+src/environments/environment.ts
+src/environments/environment.development.ts
+src/environments/firebase.config.ts

@@ -38,14 +38,13 @@ export class ProductService {
     onValue(productsRef, (snapshot) => {
       console.log('Firebase snapshot received:', snapshot.exists());
       const data = snapshot.val();
-      console.log('Firebase data:', data);
-      
+      console.log('Firebase data received successfully!');
+
       if (data) {
         const products: Product[] = Object.keys(data).map(key => ({
           id: key,
           ...data[key]
         }));
-        console.log('Processed products:', products);
         this.productsSubject.next(products);
       } else {
         console.log('No products found in Firebase, loading mock data...');

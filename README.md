@@ -9,21 +9,14 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
    ```bash
    npm install
    ```
-3. Set up environment variables:
-   - Copy `.env.example` to `.env`
-   - Fill in your Firebase configuration details in `.env`
+3. Set up environment configuration:
+   - Copy `src/environments/environment.example.ts` to `src/environments/environment.ts` and `src/environments/environment.development.ts`.
+   - Fill in your Firebase configuration values (these files are git-ignored).
+   - (Optional) Keep a personal `src/environments/.env` for your own reference; it's also ignored.
 
-## Environment Variables
+## Environments & Firebase
 
-The application uses the following environment variables:
-
-- `VITE_FIREBASE_API_KEY` - Your Firebase API key
-- `VITE_FIREBASE_AUTH_DOMAIN` - Your Firebase auth domain
-- `VITE_FIREBASE_DATABASE_URL` - Your Firebase Realtime Database URL
-- `VITE_FIREBASE_PROJECT_ID` - Your Firebase project ID
-- `VITE_FIREBASE_STORAGE_BUCKET` - Your Firebase storage bucket
-- `VITE_FIREBASE_MESSAGING_SENDER_ID` - Your Firebase messaging sender ID
-- `VITE_FIREBASE_APP_ID` - Your Firebase app ID
+The Firebase web config isn't a secret, but we still avoid committing project-specific values. Real keys live only in your local `environment*.ts` files which are ignored by git. Distribute them via secure channels or CI secrets if needed.
 
 ## Development server
 
