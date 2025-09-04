@@ -18,18 +18,30 @@ const required = [
   'FIREBASE_APP_ID'
 ];
 
-const envValues = Object.fromEntries(required.map(k => [k, process.env[k] || '']));
+// Allow an alternate var name for database URL fallback
+const envValues = Object.fromEntries(required.map(k => [k, process.env[k] || (k === 'FIREBASE_DATABASE_URL' ? process.env.DB_URL || '' : '')]));
 const missing = required.filter(k => !envValues[k]);
 
 // If all required vars are missing AND a pre-existing environment.ts exists, keep user local file (dev convenience)
 const environmentTsPath = resolve(outDir, 'environment.ts');
-if (missing.length === required.length && existsSync(environmentTsPath)) {
-  console.log('[generate-env] No env vars supplied; keeping existing environment files.');
-  process.exit(0);
+if (missing.length) {
+  console.error('[generate-env] Missing required env vars:', missing.join(', '));
+  process.exit(1);
 }
 
-if (missing.length) {
-  console.warn('[generate-env] Warning: missing env vars:', missing.join(', '));
+// Basic databaseURL validation (Firebase RTDB or Firestore emulator style URLs)
+const dbUrl = envValues.FIREBASE_DATABASE_URL;
+// Accept patterns like:
+// https://<project>.firebaseio.com/
+// https://<project>-default-rtdb.<region>.firebasedatabase.app/
+// https://<project>-default-rtdb.firebasedatabase.app
+const validDb = /^https:\/\/[a-zA-Z0-9-\.]+\.(firebaseio\.com|firebasedatabase\.app)(\/|$)/.test(dbUrl);
+if (!validDb) {
+  console.error('[generate-env] Invalid FIREBASE_DATABASE_URL format:', dbUrl);
+  console.error(' Expected something like:');
+  console.error('  https://your-project.firebaseio.com/  (legacy)');
+  console.error('  https://your-project-default-rtdb.europe-west1.firebasedatabase.app/');
+  process.exit(1);
 }
 
 function buildContent(isProd) {
