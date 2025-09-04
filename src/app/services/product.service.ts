@@ -115,6 +115,25 @@ export class ProductService {
         isNewArrival: false,
         createdAt: Date.now(),
         updatedAt: Date.now()
+      },
+      // Mock Sweater with color-specific images
+      {
+        name: 'Mock Sweater',
+        description: 'Premium knitted sweater with superior comfort',
+        price: 180,
+        images: ['/assets/products/tee1.svg'], // Default/fallback image (black)
+        colorImages: {
+          'Black': ['/assets/products/tee1.svg'],
+          'Natural': ['/assets/products/tee2.svg']
+        },
+        category: 'sweaters',
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        colors: ['Black', 'Natural'],
+        inStock: true,
+        featured: true,
+        isNewArrival: true,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
       }
     ];
 

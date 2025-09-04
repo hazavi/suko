@@ -35,11 +35,6 @@
   outline: none;
 }
 
-.sidebar-toggle:hover {
-  background: rgba(0, 0, 0, 0.04);
-  transform: scale(1.05);
-}
-
 .sidebar-toggle.active .burger-line:nth-child(1) {
   transform: translateY(5px) rotate(45deg);
 }

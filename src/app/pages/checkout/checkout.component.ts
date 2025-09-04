@@ -111,4 +111,14 @@ export class CheckoutComponent implements OnInit {
         return false;
     }
   }
+
+  getItemImage(item: CartItem): string {
+    // If the item has a color and the product has color-specific images, use those
+    if (item.color && item.product.colorImages && item.product.colorImages[item.color]) {
+      return item.product.colorImages[item.color][0];
+    }
+    
+    // Fallback to the first general image
+    return item.product.images[0] || '';
+  }
 }

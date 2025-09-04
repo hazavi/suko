@@ -4,18 +4,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
+  margin-top: 5rem;
 }
 
 .success-content {
   background: white;
   border-radius: 12px;
-  padding: 60px 40px;
+  padding: 50px 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
@@ -27,14 +28,14 @@
 }
 
 .success-content h1 {
-  font-size: 32px;
+  font-size: 2em;
   font-weight: 600;
   color: #000;
   margin-bottom: 16px;
 }
 
 .success-message {
-  font-size: 16px;
+  font-size: 1em;
   color: #666;
   line-height: 1.6;
   margin-bottom: 40px;
@@ -49,7 +50,7 @@
 }
 
 .order-details h2 {
-  font-size: 18px;
+  font-size: 1.125em;
   font-weight: 600;
   color: #000;
   margin-bottom: 20px;
@@ -61,7 +62,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  font-size: 14px;
+  font-size: 0.9em;
 }
 
 .detail-row:last-child {
@@ -79,7 +80,7 @@
 }
 
 .confirmation-note {
-  font-size: 14px;
+  font-size: 0.9em;
   color: #666;
   margin-bottom: 40px;
   line-height: 1.6;
@@ -93,7 +94,7 @@
 
 .btn-primary,
 .btn-secondary {
-  padding: 16px 32px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;

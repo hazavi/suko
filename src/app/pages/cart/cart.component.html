@@ -10,12 +10,10 @@
 
     <div *ngIf="cartItems.length > 0" class="cart-content">
       <div class="cart-items">
-        <div class="cart-item" *ngFor="let item of cartItems">
+          <div class="cart-item" *ngFor="let item of cartItems">
           <div class="item-image">
-            <img [src]="item.product.images[0]" [alt]="item.product.name">
-          </div>
-          
-          <div class="item-details">
+            <img [src]="getItemImage(item)" [alt]="item.product.name">
+          </div>          <div class="item-details">
             <h3>{{ item.product.name }}</h3>
             <div class="item-options">
               <span *ngIf="item.size">Size: {{ item.size }}</span>
