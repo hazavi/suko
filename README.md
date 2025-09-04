@@ -1,75 +1,35 @@
 # Suko
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+Simple Angular + Firebase storefront.
 
-## Setup
-
-1. Clone the repository
-2. Install dependencies:
+## Quick Start
+1. Install dependencies:
    ```bash
    npm install
    ```
-3. Set up environment configuration:
-   - Copy `src/environments/environment.example.ts` to `src/environments/environment.ts` and `src/environments/environment.development.ts`.
-   - Fill in your Firebase configuration values (these files are git-ignored).
-   - (Optional) Keep a personal `src/environments/.env` for your own reference; it's also ignored.
+2. Run dev server:
+   ```bash
+   ng serve
+   ```
+   Open http://localhost:4200
 
-## Environments & Firebase
-
-The Firebase web config isn't a secret, but we still avoid committing project-specific values. Real keys live only in your local `environment*.ts` files which are ignored by git. Distribute them via secure channels or CI secrets if needed.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
+## Build
 ```bash
 ng build
 ```
+Outputs production bundle in `dist/`.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## Tech
+- Angular 20
+- Firebase (Auth, Database/Storage as configured)
+- SCSS styling
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+## Structure (high level)
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+src/
+  app/                feature + layout components
+  services/           data + utility services
+  environments/       local (git-ignored) env files
+  assets/             images & product assets
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
